@@ -6,38 +6,15 @@ export const Container = styled.aside`
   background: var(--zinc-800);
 
   border-radius: 8px;
+`;
 
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+export const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    div {
-      margin-top: -28px;
-    }
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    margin-top: 1rem;
-
-    h1 {
-      font-size: 1rem;
-      color: var(--zinc-200);
-      font-weight: bold;
-    }
-    p {
-      font-size: 0.875rem;
-      color: var(--zinc-500);
-    }
-  }
-  footer {
-    display: flex;
-    justify-content: center;
+  div {
+    margin-top: -28px;
   }
 `;
 
@@ -48,6 +25,31 @@ export const Cover = styled.img`
   border-radius: 8px 8px 0 0;
 `;
 
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 1rem;
+
+  h1 {
+    font-size: 1rem;
+    color: var(--zinc-200);
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: var(--zinc-500);
+  }
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const Divider = styled.div`
   width: 100%;
   height: 1px;
@@ -56,7 +58,7 @@ export const Divider = styled.div`
 `;
 
 export const ButtonEdit = styled.button`
-  padding: 1rem 2.5rem;
+  padding: 1rem;
   font-size: 1rem;
   font-weight: bold;
   color: var(--emerald-600);
