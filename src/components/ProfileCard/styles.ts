@@ -58,7 +58,7 @@ export const Divider = styled.div`
 `;
 
 export const ButtonEdit = styled.button`
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
   font-weight: bold;
   color: var(--emerald-600);

@@ -1,5 +1,8 @@
+import { ThumbsUp, ChatCircleText } from "phosphor-react";
 import Avatar from "../Avatar";
 import Comment from "../Comment";
+import InputArea from "../InputArea";
+import Button from "../Button";
 
 import {
   Container,
@@ -10,29 +13,41 @@ import {
   Description,
   Hashtags,
   Divider,
+  Interactions,
+  CountReactions,
+  InteractionInfo,
+  InteractionAction,
+  ButtonAction,
+  CountComment,
+  CommentArea,
   CommentForm,
-  InputArea,
-  ButtonComment,
   Comments,
 } from "./styles";
+import { useState } from "react";
 
 const Post: React.FC = () => {
+  const [commentArea, setCommentArea] = useState(false);
+
+  function toggleCommentArea() {
+    setCommentArea(true);
+  }
+
   return (
     <Container>
       <Header>
         <Author>
           <Avatar
-            src="https://cutewallpaper.org/21/wallpaper-robot/Mr-Robot-Wallpapers-WallpaperTag.jpg"
+            src="https://b.fssta.com/uploads/application/soccer/headshots/713.png"
             borderEffect
           />
 
           <AuthorInfo>
-            <h1>Alaf Freire</h1>
-            <p>alaffreire.jaba@gmail.com</p>
+            <h1>Neymar Jr</h1>
+            <p>ney@hotney.com</p>
           </AuthorInfo>
         </Author>
 
-        <time>Publicado à 1h</time>
+        <time>Publicado à 10h</time>
       </Header>
 
       <Content>
@@ -51,21 +66,46 @@ const Post: React.FC = () => {
         </Hashtags>
       </Content>
 
-      <Divider />
+      <Interactions>
+        <InteractionInfo>
+          <CountReactions>
+            <span>
+              <ThumbsUp size={19} weight="bold" />
+              32
+            </span>
+          </CountReactions>
+          <CountComment onClick={toggleCommentArea}>
+            <span>7 comentários</span>
+          </CountComment>
+        </InteractionInfo>
 
-      <CommentForm>
-        <h1>Deixe seu comentário</h1>
+        <InteractionAction>
+          <ButtonAction>
+            <ThumbsUp size={22} />
+            Reagir
+          </ButtonAction>
+          <ButtonAction onClick={toggleCommentArea}>
+            <ChatCircleText size={22} />
+            Comentar
+          </ButtonAction>
+        </InteractionAction>
+      </Interactions>
 
-        <InputArea name=""></InputArea>
+      <CommentArea commentArea={commentArea}>
+        <CommentForm>
+          <h1>Comentários</h1>
 
-        <ButtonComment>Comentar</ButtonComment>
-      </CommentForm>
+          <InputArea rows={3} placeholder="Escreva seu comentário aqui ..." />
 
-      <Divider />
+          <Button>Comentar</Button>
+        </CommentForm>
 
-      <Comments>
-        <Comment />
-      </Comments>
+        <Divider />
+
+        <Comments>
+          <Comment />
+        </Comments>
+      </CommentArea>
     </Container>
   );
 };

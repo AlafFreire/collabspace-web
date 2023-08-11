@@ -26,13 +26,13 @@ const ProfileCard: React.FC = () => {
 
       <Content>
         <h1>Alaf Freire</h1>
-        <p>alaffreire.jaba@mail.com</p>
+        <p>alaffreire.jaba@gmail.com</p>
       </Content>
 
       <Divider />
 
       <Footer>
-        <ButtonEdit>Editar seu perfil</ButtonEdit>
+        <ButtonEdit>Editar perfil</ButtonEdit>
       </Footer>
     </Container>
   );

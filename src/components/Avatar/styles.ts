@@ -11,6 +11,7 @@ export const Container = styled.img<ContainerProps>`
   min-height: 56px;
   background: white;
   border-radius: 6px;
+  object-fit: cover;
 
   ${({ borderEffect }) =>
     borderEffect &&

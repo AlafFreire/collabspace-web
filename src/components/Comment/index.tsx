@@ -7,11 +7,11 @@ import { Container, CommentBox, AuthorAndTime, ButtonDelete } from "./styles";
 const Comment: React.FC = () => {
   return (
     <Container>
-      <Avatar src="https://cutewallpaper.org/23/aiolia-soul-of-gold-wallpaper/1583224199.jpg" />
+      <Avatar src="https://media.fstatic.com/DH5yngg4vQQdK9csLNLAzsPJ9N8=/full-fit-in/290x478/filters:format(webp)/media/artists/avatar/2022/12/naldo-benny_a305866.jpg" />
 
       <CommentBox>
         <AuthorAndTime>
-          <h1>Tardeno Akino Rego</h1>
+          <h1>Naldo Beny</h1>
           <time>Cerca de 2h</time>
 
           <ButtonDelete>
