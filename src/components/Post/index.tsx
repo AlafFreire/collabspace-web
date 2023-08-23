@@ -1,4 +1,5 @@
 import { ThumbsUp, ChatCircleText } from "phosphor-react";
+
 import Avatar from "../Avatar";
 import Comment from "../Comment";
 import InputArea from "../InputArea";
@@ -14,11 +15,11 @@ import {
   Hashtags,
   Divider,
   Interactions,
-  CountReactions,
   InteractionInfo,
+  CountReaction,
+  CountComment,
   InteractionAction,
   ButtonAction,
-  CountComment,
   CommentArea,
   CommentForm,
   Comments,
@@ -29,7 +30,7 @@ const Post: React.FC = () => {
   const [commentArea, setCommentArea] = useState(false);
 
   function toggleCommentArea() {
-    setCommentArea(true);
+    setCommentArea(!commentArea);
   }
 
   return (
@@ -47,7 +48,7 @@ const Post: React.FC = () => {
           </AuthorInfo>
         </Author>
 
-        <time>Publicado à 10h</time>
+        <time>Publicado à 1h</time>
       </Header>
 
       <Content>
@@ -68,14 +69,15 @@ const Post: React.FC = () => {
 
       <Interactions>
         <InteractionInfo>
-          <CountReactions>
+          <CountReaction>
             <span>
               <ThumbsUp size={19} weight="bold" />
               32
             </span>
-          </CountReactions>
-          <CountComment onClick={toggleCommentArea}>
-            <span>7 comentários</span>
+          </CountReaction>
+
+          <CountComment>
+            <span onClick={toggleCommentArea}>7 comentários</span>
           </CountComment>
         </InteractionInfo>
 
@@ -84,6 +86,7 @@ const Post: React.FC = () => {
             <ThumbsUp size={22} />
             Reagir
           </ButtonAction>
+
           <ButtonAction onClick={toggleCommentArea}>
             <ChatCircleText size={22} />
             Comentar
@@ -91,9 +94,9 @@ const Post: React.FC = () => {
         </InteractionAction>
       </Interactions>
 
-      <CommentArea commentArea={commentArea}>
+      <CommentArea $commentArea={commentArea}>
         <CommentForm>
-          <h1>Comentários</h1>
+          <h1>Deixe seu comentário</h1>
 
           <InputArea rows={3} placeholder="Escreva seu comentário aqui ..." />
 

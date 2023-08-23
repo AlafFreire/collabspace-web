@@ -1,7 +1,7 @@
-import { css, styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 interface CommentAreaProps {
-  commentArea: boolean;
+  $commentArea: boolean;
 }
 
 export const Container = styled.div`
@@ -95,7 +95,7 @@ export const InteractionInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem;
   border-top: 1px solid var(--zinc-700);
   border-bottom: 1px solid var(--zinc-700);
 
@@ -111,17 +111,18 @@ export const InteractionInfo = styled.div`
   }
 `;
 
-export const CountReactions = styled.div`
+export const CountReaction = styled.div`
   span {
     display: flex;
-
-    gap: 0.5rem;
+    gap: 4px;
   }
 
   svg {
     color: var(--emerald-600);
   }
 `;
+
+export const CountComment = styled.div``;
 
 export const InteractionAction = styled.div`
   display: flex;
@@ -133,9 +134,9 @@ export const InteractionAction = styled.div`
 export const ButtonAction = styled.button`
   width: 25%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 0.25rem;
+  justify-content: center;
+  gap: 4px;
   background: transparent;
   border: 0;
   outline: 0;
@@ -149,21 +150,19 @@ export const ButtonAction = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: var(--zinc-700);
+    background: var(--zinc-700);
   }
 `;
 
 export const CommentArea = styled.div<CommentAreaProps>`
   margin-top: 2rem;
 
-  ${({ commentArea }) =>
-    !commentArea &&
+  ${({ $commentArea }) =>
+    !$commentArea &&
     css`
       display: none;
     `}
 `;
-
-export const CountComment = styled.div``;
 
 export const CommentForm = styled.form`
   display: flex;

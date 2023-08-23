@@ -4,7 +4,6 @@ export const Container = styled.aside`
   width: 25%;
   height: 350px;
   background: var(--zinc-800);
-
   border-radius: 8px;
 `;
 
@@ -58,7 +57,7 @@ export const Divider = styled.div`
 `;
 
 export const ButtonEdit = styled.button`
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   font-size: 1rem;
   font-weight: bold;
   color: var(--emerald-600);

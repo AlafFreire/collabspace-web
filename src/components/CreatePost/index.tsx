@@ -9,7 +9,7 @@ const CreatePost: React.FC = () => {
     <Container>
       <Content>
         <Avatar
-          src="https://cutewallpaper.org/21/wallpaper-robot/Mr-Robot-Wallpapers-WallpaperTag.jpg"
+          src="https://i.pinimg.com/736x/b7/65/02/b76502e936cd209b595bd7a537e74db4.jpg"
           borderEffect
         />
 

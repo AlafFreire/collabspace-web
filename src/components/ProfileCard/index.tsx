@@ -18,7 +18,7 @@ const ProfileCard: React.FC = () => {
 
         <div>
           <Avatar
-            src="https://cutewallpaper.org/21/wallpaper-robot/Mr-Robot-Wallpapers-WallpaperTag.jpg"
+            src="https://i.pinimg.com/736x/b7/65/02/b76502e936cd209b595bd7a537e74db4.jpg"
             borderEffect
           />
         </div>
@@ -26,13 +26,13 @@ const ProfileCard: React.FC = () => {
 
       <Content>
         <h1>Alaf Freire</h1>
-        <p>alaffreire.jaba@gmail.com</p>
+        <p>alaffreire.jaba@hotmail.com</p>
       </Content>
 
       <Divider />
 
       <Footer>
-        <ButtonEdit>Editar perfil</ButtonEdit>
+        <ButtonEdit>Editar seu perfil</ButtonEdit>
       </Footer>
     </Container>
   );
