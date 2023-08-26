@@ -8,25 +8,32 @@ import {
   Footer,
 } from "./styles";
 
-import Avatar from "../Avatar";
+import AvatarSquare from "../AvatarSquare";
+import { useNavigate } from "react-router-dom";
 
 const ProfileCard: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleMe = () => {
+    navigate("/me");
+  };
+
   return (
     <Container>
       <Header>
         <Cover src="https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg" />
 
         <div>
-          <Avatar
-            src="https://i.pinimg.com/736x/b7/65/02/b76502e936cd209b595bd7a537e74db4.jpg"
+          <AvatarSquare
+            src="https://i.pinimg.com/1200x/db/6f/0e/db6f0ef17e4e91005cb6e31581419d1e.jpg"
             borderEffect
           />
         </div>
       </Header>
 
       <Content>
-        <h1>Alaf Freire</h1>
-        <p>alaffreire.jaba@hotmail.com</p>
+        <h1 onClick={handleMe}>Alaf Freire</h1>
+        <p>alaf.jaba@hotmail.com</p>
       </Content>
 
       <Divider />

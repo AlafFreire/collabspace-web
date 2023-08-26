@@ -1,4 +1,4 @@
-import Avatar from "../Avatar";
+import Avatar from "../AvatarSquare";
 import InputArea from "../InputArea";
 import Button from "../Button";
 
@@ -9,7 +9,7 @@ const CreatePost: React.FC = () => {
     <Container>
       <Content>
         <Avatar
-          src="https://i.pinimg.com/736x/b7/65/02/b76502e936cd209b595bd7a537e74db4.jpg"
+          src="https://i.pinimg.com/1200x/db/6f/0e/db6f0ef17e4e91005cb6e31581419d1e.jpg"
           borderEffect
         />
 

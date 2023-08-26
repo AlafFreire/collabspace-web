@@ -19,6 +19,11 @@ export const Overview = styled.div``;
 
 export const UserBanner = styled.div`
   position: relative;
+
+  div {
+    margin-top: -152px;
+    margin-left: 2rem;
+  }
 `;
 
 export const EditCoverButton = styled.button`
@@ -30,19 +35,18 @@ export const EditCoverButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 6px;
+  border-radius: 100%;
   border: 0;
   outline: 0;
-  border-radius: 100%;
   background: var(--zinc-200);
   color: var(--emerald-600);
-
-  transition: ease 0.25s;
+  transition: ease 0.15s;
 
   cursor: pointer;
 
   &:hover {
-    background: var(--emerald-600);
-    color: var(--zinc-200);
+    background: var(--zinc-300);
+    color: var(--emerald-600);
   }
 `;
 
@@ -52,16 +56,6 @@ export const Cover = styled.img`
   height: 192px;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
-`;
-
-export const Avatar = styled.img`
-  display: block;
-  width: 192px;
-  height: 192px;
-  border-radius: 100%;
-  object-fit: cover;
-  margin-top: -152px;
-  margin-left: 2rem;
 `;
 
 export const EditInfoButton = styled.button`
@@ -169,13 +163,13 @@ export const FriendList = styled.div`
 export const AreaFriendButton = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: -1.25rem;
+  margin-bottom: -20px;
 
   button {
-    height: 2.5rem;
+    height: 40px;
     padding: 0 1rem;
-    border: 1px solid var(--zinc-700);
     outline: 0;
+    border: 1px solid var(--zinc-700);
     border-radius: 8px;
     font-weight: 500;
     color: var(--zinc-300);

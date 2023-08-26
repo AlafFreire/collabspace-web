@@ -1,15 +1,10 @@
 import LayoutDefault from "../../layouts/Default";
 
+import AvatarCircle from "../../components/AvatarCircle";
 import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
 
-import {
-  Camera,
-  PencilSimple,
-  MapPin,
-  WhatsappLogo,
-  Clock,
-} from "phosphor-react";
+import { Camera, PencilSimple, MapPin, Phone, Clock } from "phosphor-react";
 
 import {
   Container,
@@ -17,8 +12,9 @@ import {
   Overview,
   UserBanner,
   Cover,
-  Avatar,
+  EditCoverButton,
   UserInfo,
+  EditInfoButton,
   General,
   Total,
   Contact,
@@ -28,8 +24,6 @@ import {
   Sidebar,
   Requests,
   RequestList,
-  EditCoverButton,
-  EditInfoButton,
 } from "./styles";
 
 const Profile: React.FC = () => {
@@ -40,14 +34,20 @@ const Profile: React.FC = () => {
           <Overview>
             <UserBanner>
               <EditCoverButton>
-                <Camera size={24} weight="fill" />
+                <Camera size={22} weight="fill" />
               </EditCoverButton>
+
               <Cover src="https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg" />
 
-              <Avatar src="https://i.pinimg.com/1200x/db/6f/0e/db6f0ef17e4e91005cb6e31581419d1e.jpg" />
+              <div>
+                <AvatarCircle
+                  size="192px"
+                  src="https://i.pinimg.com/1200x/db/6f/0e/db6f0ef17e4e91005cb6e31581419d1e.jpg"
+                />
+              </div>
 
               <EditInfoButton>
-                <PencilSimple size={24} weight="bold" />
+                <PencilSimple size={22} weight="bold" />
               </EditInfoButton>
             </UserBanner>
 
@@ -71,17 +71,17 @@ const Profile: React.FC = () => {
 
               <Contact>
                 <span>
-                  <MapPin size={20.5} weight="bold" />
+                  <MapPin size={20} weight="bold" />
                   Jaborandi, São Paulo, Brasil
                 </span>
 
                 <span>
-                  <WhatsappLogo size={20.5} weight="bold" />
+                  <Phone size={20} weight="bold" />
                   (17) 98180-5243
                 </span>
 
                 <span>
-                  <Clock size={20.5} weight="bold" />
+                  <Clock size={20} weight="bold" />
                   Entrou em Fevereiro de 2023
                 </span>
               </Contact>
@@ -103,7 +103,9 @@ const Profile: React.FC = () => {
               <FriendCard />
               <FriendCard />
               <FriendCard />
+              <FriendCard />
             </FriendList>
+
             <AreaFriendButton>
               <button>Ver todos os amigos</button>
             </AreaFriendButton>
