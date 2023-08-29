@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {
-  ReactNode,
   createContext,
   useContext,
   useState,
   useCallback,
+  ReactNode,
 } from "react";
-import { User } from "../service/Sessions/types";
-import { session } from "../service/Sessions";
-import api from "../service/API/api";
+
+import { User } from "../services/Sessions/types";
+
+import { session } from "../services/Sessions";
+
+import api from "../services/Api/api";
 import usePersistedState from "../hooks/usePersistedState";
 
 interface SignInRequest {
@@ -25,6 +30,8 @@ interface AuthenticationContextType {
   loading: boolean;
   user: Partial<User> | null;
   token: string;
+  loggedEmail: string;
+  handleLoggedEmail: (email: string) => void;
   signIn(data: SignInRequest): Promise<SignInResponse>;
   signOut(): void;
 }
@@ -39,8 +46,17 @@ const AuthenticationContext = createContext<AuthenticationContextType>(
 
 const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
   const [user, setUser] = usePersistedState<Partial<User> | null>("user", null);
-  const [token, setToken] = usePersistedState("token", "");
-  const [loading, setLoading] = useState(false);
+  const [token, setToken] = usePersistedState<string>("token", "");
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loggedEmail, setLoggedEmail] = useState<string>("");
+
+  const handleLoggedEmail = useCallback(
+    (email: string) => {
+      setLoggedEmail(email);
+    },
+    [setLoggedEmail],
+  );
 
   const signIn = useCallback(
     async ({ email, password }: SignInRequest): Promise<SignInResponse> => {
@@ -57,7 +73,9 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
             api.defaults.headers.authorization = `Bearer ${data.token}`;
           }
         }
+
         setLoading(false);
+
         return { result, message };
       } catch (error: any) {
         setLoading(false);
@@ -79,6 +97,8 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         loading,
         user,
         token,
+        loggedEmail,
+        handleLoggedEmail,
         signIn,
         signOut,
       }}

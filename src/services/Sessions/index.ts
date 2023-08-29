@@ -1,4 +1,5 @@
-import api from "../API/api";
+import api from "../Api/api";
+
 import { ISessionRequest, ISessionResponse } from "./types";
 
 const session = async ({

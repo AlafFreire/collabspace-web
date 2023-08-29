@@ -42,7 +42,7 @@ const Profile: React.FC = () => {
               <div>
                 <AvatarCircle
                   size="192px"
-                  src="https://i.pinimg.com/1200x/db/6f/0e/db6f0ef17e4e91005cb6e31581419d1e.jpg"
+                  src="https://media.kasperskydaily.com/wp-content/uploads/sites/94/2018/02/15183316/mr-robot-safety-tips-featured.jpg"
                 />
               </div>
 
@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
 
                 <span>
                   <Phone size={20} weight="bold" />
-                  (17) 98180-5243
+                  (17) 99242-4418
                 </span>
 
                 <span>

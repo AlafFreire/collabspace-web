@@ -9,7 +9,7 @@ const CreatePost: React.FC = () => {
     <Container>
       <Content>
         <Avatar
-          src="https://i.pinimg.com/1200x/db/6f/0e/db6f0ef17e4e91005cb6e31581419d1e.jpg"
+          src="https://media.kasperskydaily.com/wp-content/uploads/sites/94/2018/02/15183316/mr-robot-safety-tips-featured.jpg"
           borderEffect
         />
 

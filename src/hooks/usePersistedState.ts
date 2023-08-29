@@ -12,6 +12,7 @@ function usePersistedState<T>(key: string, initialState: T): Response<T> {
       return initialState;
     }
   });
+
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
   }, [key, state]);

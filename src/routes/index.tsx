@@ -6,8 +6,6 @@ function AppRoutes() {
   const { signed } = useAuthentication();
 
   return signed ? <AuthRoutes /> : <DeauthRoutes />;
-
-  return signed ? <AuthRoutes /> : <DeauthRoutes />;
 }
 
 export default AppRoutes;

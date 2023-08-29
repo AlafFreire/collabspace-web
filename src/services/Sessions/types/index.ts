@@ -1,15 +1,13 @@
-import { AppResponse } from "../../API/types";
+import { AppResponse } from "../../Api/types";
 
 interface User {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    telephone: string | null;
-    birthDate: string;
-    avatarUrl: string | null;
-    createdAt: string;
-  };
+  id: string;
+  name: string;
+  email: string;
+  telephone: string | null;
+  birthDate: string;
+  avatarUrl: string | null;
+  createdAt: string;
 }
 
 interface ISession {
