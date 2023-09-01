@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import { useAuthentication } from "../../contexts/Authentication";
+
 import {
   Container,
   Header,
@@ -13,28 +15,30 @@ import {
 import AvatarSquare from "../AvatarSquare";
 
 const ProfileCard: React.FC = () => {
+  const { user } = useAuthentication();
+
   const navigate = useNavigate();
 
   const handleMe = () => {
-    navigate("/me");
+    if (user) navigate(`/me/${user.id}`);
   };
 
   return (
     <Container>
       <Header>
-        <Cover src="https://cutewallpaper.org/29/dual-screen-mr-robot-wallpaper/247286624.jpg" />
+        <Cover src={"https://i.imgur.com/gH2QLjf.png"} />
 
         <div onClick={handleMe}>
           <AvatarSquare
-            src="https://media.kasperskydaily.com/wp-content/uploads/sites/94/2018/02/15183316/mr-robot-safety-tips-featured.jpg"
+            src={user?.avatarUrl || "https://i.imgur.com/HYrZqHy.jpg"}
             borderEffect
           />
         </div>
       </Header>
 
       <Content>
-        <h1 onClick={handleMe}>Alaf Freire</h1>
-        <p>alaffreire.jaba@hotmail.com</p>
+        <h1 onClick={handleMe}>{user?.name}</h1>
+        <p>{user?.email}</p>
       </Content>
 
       <Divider />

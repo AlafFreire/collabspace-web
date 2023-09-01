@@ -1,9 +1,10 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
-import { SpinerLogin } from "../../assets/sources";
+import { Spiner } from "../../assets/sources";
 
 import {
   Container,
@@ -14,7 +15,6 @@ import {
   Button,
   LinkRegister,
 } from "./styles";
-import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -30,14 +30,10 @@ const Login: React.FC = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const { message } = await signIn({ email, password });
+    const { result, message } = await signIn({ email, password });
 
-    alert(message);
-
-    const { result } = await signIn({ email, password });
-
-    if (result === "success") toast.success("Login efetuado com sucesso!");
-    if (result === "error") toast.error("Falha ao fazer login!");
+    if (result === "success") toast.success(message);
+    if (result === "error") toast.error(message);
   };
 
   return (
@@ -75,7 +71,7 @@ const Login: React.FC = () => {
           />
         </Group>
 
-        <Button>{loading ? <SpinerLogin /> : "Fazer login"}</Button>
+        <Button>{loading ? <Spiner /> : "Fazer login"}</Button>
 
         <LinkRegister>
           <p>Novo no Collabspace?</p>

@@ -15,11 +15,11 @@ const RequestFriend: React.FC = () => {
   return (
     <Container>
       <User>
-        <AvatarCircle src="https://ucarecdn.com/cc57ba86-147a-41dd-a486-2d4b45dedde6/-/crop/1785x1500/0,0/-/resize/1035x870/" />
+        <AvatarCircle src="https://images.generated.photos/rRsRe7d3ekuoklEhgFeJ0mlCEMsuw7je_Wzzmlo_9UM/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MjUzMzMyLmpwZw.jpg" />
 
         <Info>
-          <h1>Victor Wooten </h1>
-          <p>wooten.vic_bassplayer@yahoo.com </p>
+          <h1>Marta Ribeiro</h1>
+          <p>martaribeiro@hotmaadsasdasdasdil.com</p>
         </Info>
       </User>
 

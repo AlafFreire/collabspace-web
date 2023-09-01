@@ -7,11 +7,11 @@ const FriendCard: React.FC = () => {
     <Container>
       <AvatarSquare
         size="72px"
-        src="https://akamai.sscdn.co/uploadfile/letras/fotos/9/0/a/6/90a6155cfd2054f7fcc56ddc83311307.jpg"
+        src="https://www.byrdie.com/thmb/jbHGe-TMbHgP3VmJxuivdNY8aCA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/promo-f479f33fd9304b3997cc0f7c97c1a245-1aebc5f0ea88447e840db1f8fd67f802.jpg"
       />
 
       <Info>
-        <h1>Marcus Miller</h1>
+        <h1>Alaf Freire</h1>
         <p>268 amigos em comum</p>
       </Info>
     </Container>
