@@ -11,7 +11,7 @@ const FriendCard: React.FC = () => {
       />
 
       <Info>
-        <h1>Alaf Freire</h1>
+        <h1>Natan Foleto</h1>
         <p>268 amigos em comum</p>
       </Info>
     </Container>

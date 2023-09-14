@@ -12,14 +12,7 @@ import AvatarCircle from "../../components/AvatarCircle";
 import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
 
-import {
-  Camera,
-  PencilSimple,
-  MapPin,
-  Phone,
-  Clock,
-  SignOut,
-} from "phosphor-react";
+import { Camera, PencilSimple, MapPin, Phone, Clock } from "phosphor-react";
 
 import {
   Container,
@@ -177,7 +170,7 @@ const Profile: React.FC = () => {
           </Requests>
 
           <a style={{ color: "white" }} onClick={signOut}>
-            Sair{" "}
+            Sair
           </a>
         </Sidebar>
       </Container>
