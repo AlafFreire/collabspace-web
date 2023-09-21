@@ -11,6 +11,7 @@ import LayoutDefault from "../../layouts/Default";
 import AvatarCircle from "../../components/AvatarCircle";
 import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
+import Modal from "../../components/Modal";
 
 import { Camera, PencilSimple, MapPin, Phone, Clock } from "phosphor-react";
 
@@ -49,6 +50,8 @@ const Profile: React.FC = () => {
 
   const [user, setUser] = useState<IUser | null>(null);
 
+  const [modalUpdateAvatar, setModalUpdateAvatar] = useState(false);
+
   const handleListUserById = useCallback(async () => {
     try {
       if (id) {
@@ -64,6 +67,10 @@ const Profile: React.FC = () => {
       toast.error(error.message);
     }
   }, [id]);
+
+  function toggleModalUpdateAvatar() {
+    setModalUpdateAvatar(!modalUpdateAvatar);
+  }
 
   useEffect(() => {
     handleListUserById();
@@ -82,13 +89,10 @@ const Profile: React.FC = () => {
               <Cover src={"https://i.imgur.com/gH2QLjf.png"} />
 
               <div>
-                <AvatarCircle
-                  size="192px"
-                  src={user?.avatarUrl || "https://i.imgur.com/HYrZqHy.jpg"}
-                />
+                <AvatarCircle size="192px" avatar={user?.avatarUrl} />
               </div>
 
-              <EditInfoButton>
+              <EditInfoButton onClick={toggleModalUpdateAvatar}>
                 <PencilSimple size={22} weight="bold" />
               </EditInfoButton>
             </UserBanner>
@@ -174,6 +178,15 @@ const Profile: React.FC = () => {
           </a>
         </Sidebar>
       </Container>
+
+      <Modal
+        width="960px"
+        height="120px"
+        isOpen={modalUpdateAvatar}
+        onClose={toggleModalUpdateAvatar}
+      >
+        <input type="text" />
+      </Modal>
     </LayoutDefault>
   );
 };

@@ -1,14 +1,23 @@
 import { ReactNode } from "react";
-import { Container, Content } from "./styles";
 import { X } from "phosphor-react";
+
+import { Container, Content } from "./styles";
 
 interface ModalProps {
   isOpen: boolean;
   onClose(): void;
+  width?: string;
+  height?: string;
   children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  width = "480px",
+  height,
+  children,
+}) => {
   const id = "modal";
 
   function handleOutsideClick(e: any) {
@@ -18,8 +27,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return (
     isOpen && (
       <Container id={id} onClick={handleOutsideClick}>
-        <Content>
-          <X size={15} weight="bold" onClick={onClose} />
+        <Content $width={width} $height={height}>
+          <X size={20} weight="bold" onClick={onClose} />
           {children}
         </Content>
       </Container>

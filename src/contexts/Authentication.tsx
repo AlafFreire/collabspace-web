@@ -6,6 +6,8 @@ import {
   ReactNode,
 } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { User } from "../services/sessions/types";
 
 import { session } from "../services/sessions";
@@ -32,6 +34,7 @@ interface AuthenticationContextType {
   handleLoggedEmail: (email: string) => void;
   signIn(data: SignInRequest): Promise<SignInResponse>;
   signOut(): void;
+  me(id?: string): void;
 }
 
 interface AuthenticationProviderProps {
@@ -43,6 +46,8 @@ const AuthenticationContext = createContext<AuthenticationContextType>(
 );
 
 const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
+  const navigate = useNavigate();
+
   const [user, setUser] = usePersistedState<Partial<User> | null>("user", null);
   const [token, setToken] = usePersistedState<string>("token", "");
 
@@ -88,6 +93,10 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     setToken("");
   };
 
+  const me = (id?: string) => {
+    if (id) navigate(`/me/${id}`);
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -99,6 +108,7 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         handleLoggedEmail,
         signIn,
         signOut,
+        me,
       }}
     >
       {children}
