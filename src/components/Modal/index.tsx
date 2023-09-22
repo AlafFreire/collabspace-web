@@ -4,11 +4,11 @@ import { X } from "phosphor-react";
 import { Container, Content } from "./styles";
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose(): void;
+  children: ReactNode;
   width?: string;
   height?: string;
-  children: ReactNode;
+  isOpen: boolean;
+  onClose(): void;
 }
 
 const Modal: React.FC<ModalProps> = ({
