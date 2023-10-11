@@ -1,4 +1,8 @@
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
+
+interface FriendshipButtonProps {
+  $relationship: number;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -123,6 +127,36 @@ export const Total = styled.div`
   }
 `;
 
+export const FriendshipArea = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  gap: 8px;
+`;
+
+export const FriendshipButton = styled.button<FriendshipButtonProps>`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: ${({ $relationship }) => {
+    if ($relationship === 1 || $relationship === 2)
+      return css`var(--emerald-600)`;
+    if ($relationship === 3) return css`var(--red-500)`;
+    if ($relationship === 4 || $relationship === 5) return css`var(--blue-600)`;
+  }};
+  color: var(--white);
+  border: 0;
+  outline: 0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: 0.15s all;
+
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+`;
+
 export const Contact = styled.div`
   flex: 0.3;
 
@@ -211,7 +245,7 @@ export const RequestList = styled.div`
   margin-top: 1rem;
 `;
 
-export const FormEditAvatar = styled.form`
+export const FormEdit = styled.form`
   height: 100%;
   padding: 2rem 4rem;
   display: flex;
@@ -220,7 +254,7 @@ export const FormEditAvatar = styled.form`
   gap: 8px;
 `;
 
-export const InputEditAvatar = styled.input`
+export const InputEdit = styled.input`
   width: 100%;
   height: 48px;
   background: var(--zinc-700);
@@ -231,12 +265,12 @@ export const InputEditAvatar = styled.input`
   border: 0;
   outline: 0;
 
-  &&::placeholder {
+  &::placeholder {
     color: var(--zinc-400);
   }
 `;
 
-export const ButtonEditAvatar = styled.button`
+export const ButtonEdit = styled.button`
   height: 48px;
   display: flex;
   align-items: center;
@@ -256,4 +290,9 @@ export const ButtonEditAvatar = styled.button`
     color: var(--zinc-200);
     background: var(--emerald-600);
   }
+`;
+
+export const PreviewAvatar = styled.img`
+  width: 100%;
+  height: 100%;
 `;

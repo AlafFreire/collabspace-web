@@ -7,6 +7,8 @@ interface IUser {
   telephone: string | null;
   birthDate: string;
   avatarUrl: string | null;
+  coverUrl: string | null;
+  bio: string | null;
   createdAt: string;
 }
 
@@ -40,11 +42,17 @@ interface IListUserByIdResponse extends AppResponse {
   };
 }
 
-interface IUpdateUserAvatarRequest {
+interface IUpdateAvatarRequest {
   avatarUrl: string;
 }
 
-type IUpdateUserAvatarResponse = AppResponse;
+type IUpdateAvatarResponse = AppResponse;
+
+interface IUpdateCoverRequest {
+  coverUrl: string;
+}
+
+type IUpdateCoverResponse = AppResponse;
 
 export type {
   IUser,
@@ -52,6 +60,8 @@ export type {
   ICreateUserResponse,
   IListUserByIdRequest,
   IListUserByIdResponse,
-  IUpdateUserAvatarRequest,
-  IUpdateUserAvatarResponse,
+  IUpdateAvatarRequest,
+  IUpdateAvatarResponse,
+  IUpdateCoverRequest,
+  IUpdateCoverResponse,
 };

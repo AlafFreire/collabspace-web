@@ -8,9 +8,9 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { User } from "../services/Sessions/types";
+import { User } from "../services/sessions/types";
 
-import { session } from "../services/Sessions";
+import { session } from "../services/sessions";
 
 import api from "../services/Api/api";
 import usePersistedState from "../hooks/usePersistedState";
@@ -30,9 +30,10 @@ interface AuthenticationContextType {
   loading: boolean;
   user: Partial<User> | null;
   token: string;
-  handleAvatarUrl: (avatarUrl: string) => void;
   loggedEmail: string;
   handleLoggedEmail: (email: string) => void;
+  handleAvatarUrl: (avatarUrl: string) => void;
+  handleCoverUrl: (coverUrl: string) => void;
   signIn(data: SignInRequest): Promise<SignInResponse>;
   signOut(): void;
   me(id?: string): void;
@@ -67,6 +68,16 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
       setUser((prevState) => ({
         ...prevState,
         avatarUrl,
+      }));
+    },
+    [setUser],
+  );
+
+  const handleCoverUrl = useCallback(
+    (coverUrl: string) => {
+      setUser((prevState) => ({
+        ...prevState,
+        coverUrl,
       }));
     },
     [setUser],
@@ -118,6 +129,7 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         loggedEmail,
         handleLoggedEmail,
         handleAvatarUrl,
+        handleCoverUrl,
         signIn,
         signOut,
         me,
