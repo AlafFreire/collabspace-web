@@ -230,8 +230,9 @@ const Profile: React.FC = () => {
   const handleRemoveRequest = useCallback(
     async (id: string) => {
       setRequests(requests.filter((request) => request.id !== id));
+      handleListAllFriendsByUser();
     },
-    [requests],
+    [requests, handleListAllFriendsByUser],
   );
 
   const handleUpdateAvatar = useCallback(
