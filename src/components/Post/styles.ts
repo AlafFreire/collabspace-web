@@ -1,7 +1,11 @@
-import { styled, css } from "styled-components";
+import { css, styled } from "styled-components";
 
 interface CommentAreaProps {
   $commentArea: boolean;
+}
+
+interface BoxOptionsProps {
+  $boxOptions: boolean;
 }
 
 export const Container = styled.div`
@@ -9,6 +13,8 @@ export const Container = styled.div`
   padding: 40px;
   background: var(--zinc-800);
   border-radius: 8px;
+
+  position: relative;
 `;
 
 export const Header = styled.header`
@@ -185,4 +191,52 @@ export const Comments = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const OptionsArea = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+
+  svg {
+    color: var(--zinc-200);
+
+    cursor: pointer;
+  }
+`;
+
+export const BoxOptions = styled.div<BoxOptionsProps>`
+  position: absolute;
+  bottom: 36px;
+  right: 0px;
+  width: 20rem;
+
+  display: ${({ $boxOptions }) => ($boxOptions ? "flex" : "none")};
+  flex-direction: column;
+  background: var(--zinc-900);
+  border-radius: 8px;
+  padding: 4px 0;
+`;
+
+export const Option = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--zinc-400);
+  font-weight: 500;
+  padding: 1rem;
+  border: 0;
+  outline: 0;
+  transition: all 0.15s;
+
+  cursor: pointer;
+
+  svg {
+    color: var(--zinc-400);
+  }
+
+  &:hover {
+    background: #27272a;
+  }
 `;

@@ -31,6 +31,12 @@ interface ICreatePostResponse extends AppResponse {
   data?: IPost;
 }
 
+interface IDeletePostRequest {
+  id: string;
+}
+
+type IDeletePostResponse = AppResponse;
+
 interface IListAllPostsResponse extends AppResponse {
   data?: {
     total: number;
@@ -39,8 +45,10 @@ interface IListAllPostsResponse extends AppResponse {
 }
 
 export type {
-  IPost,
   ICreatePostRequest,
   ICreatePostResponse,
+  IDeletePostRequest,
+  IDeletePostResponse,
   IListAllPostsResponse,
+  IPost,
 };

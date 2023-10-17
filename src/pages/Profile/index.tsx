@@ -391,7 +391,7 @@ const Profile: React.FC = () => {
                     <strong>115</strong> publicações
                   </span>
                   <span>
-                    <strong>1562</strong> amigos
+                    <strong>{friends.length}</strong> amigos
                   </span>
                 </Total>
 

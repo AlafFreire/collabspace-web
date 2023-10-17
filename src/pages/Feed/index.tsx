@@ -1,16 +1,16 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import LayoutDefault from "../../layouts/Default";
 
-import ProfileCard from "../../components/ProfileCard";
 import CreatePost from "../../components/CreatePost";
 import Post from "../../components/Post";
+import ProfileCard from "../../components/ProfileCard";
 
 import { Container, Posts } from "./styles";
 
-import { IPost } from "../../services/posts/types";
 import { listAllPosts } from "../../services/posts";
+import { IPost } from "../../services/posts/types";
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -38,6 +38,9 @@ const Feed: React.FC = () => {
       return posts;
     });
 
+  const handleRemovePost = (id: string) =>
+    setPosts((prevState) => prevState.filter((post) => post.id !== id));
+
   useEffect(() => {
     handleListAllPosts();
   }, [handleListAllPosts]);
@@ -63,6 +66,7 @@ const Feed: React.FC = () => {
               comments={post.comments}
               reactions={post.reactions}
               publishedAt={post.publishedAt}
+              onDeletePost={handleRemovePost}
             />
           ))}
         </Posts>
