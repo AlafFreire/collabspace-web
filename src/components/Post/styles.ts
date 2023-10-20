@@ -1,4 +1,4 @@
-import { css, styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 interface CommentAreaProps {
   $commentArea: boolean;
@@ -200,7 +200,6 @@ export const OptionsArea = styled.div`
 
   svg {
     color: var(--zinc-200);
-
     cursor: pointer;
   }
 `;
@@ -218,7 +217,7 @@ export const BoxOptions = styled.div<BoxOptionsProps>`
   padding: 4px 0;
 `;
 
-export const Option = styled.div`
+export const Option = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -237,6 +236,6 @@ export const Option = styled.div`
   }
 
   &:hover {
-    background: #27272a;
+    background: var(--zinc-800);
   }
 `;

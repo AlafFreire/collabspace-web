@@ -128,9 +128,9 @@ export const Total = styled.div`
 `;
 
 export const FriendshipArea = styled.div`
-  margin-top: 1rem;
   display: flex;
   gap: 8px;
+  margin-top: 1rem;
 `;
 
 export const FriendshipButton = styled.button<FriendshipButtonProps>`
@@ -141,7 +141,7 @@ export const FriendshipButton = styled.button<FriendshipButtonProps>`
     if ($relationship === 1 || $relationship === 2)
       return css`var(--emerald-600)`;
     if ($relationship === 3) return css`var(--red-500)`;
-    if ($relationship === 4 || $relationship === 5) return css`var(--blue-600)`;
+    if ($relationship === 4) return css`var(--blue-600)`;
   }};
   color: var(--white);
   border: 0;

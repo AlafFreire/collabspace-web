@@ -1,8 +1,11 @@
-import moment from "moment";
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { useState, useEffect, useCallback, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import moment from "moment";
 
+import { IUser } from "../../services/users/types";
+import { listUserById, updateAvatar, updateCover } from "../../services/users";
+import { IFriend, IRequest } from "../../services/friends/types";
 import {
   acceptRequest,
   cancelRequest,
@@ -12,53 +15,50 @@ import {
   listAllRequestsByUser,
   recuseRequest,
 } from "../../services/friends";
-import { IFriend, IRequest } from "../../services/friends/types";
-import { listUserById, updateAvatar, updateCover } from "../../services/users";
-import { IUser } from "../../services/users/types";
 
 import LayoutDefault from "../../layouts/Default";
 
 import AvatarCircle from "../../components/AvatarCircle";
+import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
 import Modal from "../../components/Modal";
-import RequestFriend from "../../components/RequestFriend";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
 import {
   Camera,
-  Clock,
-  MapPin,
   PencilSimple,
+  MapPin,
   Phone,
-  UserCircleMinus,
+  Clock,
   UserCirclePlus,
+  UserCircleMinus,
 } from "phosphor-react";
 
 import {
-  AreaFriendButton,
-  ButtonEdit,
-  Contact,
   Container,
   Content,
+  Overview,
+  UserBanner,
   Cover,
   EditCoverButton,
+  UserInfo,
   EditInfoButton,
-  FormEdit,
-  FriendList,
-  Friends,
+  General,
+  Total,
   FriendshipArea,
   FriendshipButton,
-  General,
-  InputEdit,
-  Overview,
-  PreviewAvatar,
-  RequestList,
-  Requests,
+  Contact,
+  Friends,
+  FriendList,
+  AreaFriendButton,
   Sidebar,
-  Total,
-  UserBanner,
-  UserInfo,
+  Requests,
+  RequestList,
+  FormEdit,
+  InputEdit,
+  ButtonEdit,
+  PreviewAvatar,
 } from "./styles";
 
 moment.defineLocale("pt-br", {
@@ -76,7 +76,6 @@ const Profile: React.FC = () => {
     user: userLogged,
     handleAvatarUrl,
     handleCoverUrl,
-    signOut,
   } = useAuthentication();
 
   const [user, setUser] = useState<IUser | null>(null);
@@ -84,7 +83,7 @@ const Profile: React.FC = () => {
   const [requests, setRequests] = useState<IRequest[]>([]);
   const [userLoggedRequests, setUserLoggedRequests] = useState<IRequest[]>([]);
 
-  const [relationship, setRelationship] = useState(-1);
+  const [relationship, setRelationship] = useState(0);
   const [relationshipId, setRelationshipId] = useState<string>();
   const [modalEditAvatar, setModalEditAvatar] = useState(false);
   const [modalEditCover, setModalEditCover] = useState(false);
@@ -144,7 +143,7 @@ const Profile: React.FC = () => {
     try {
       if (userLogged?.id) {
         const { result, data, message } = await listAllRequestsByUser({
-          id: userLogged?.id,
+          id: userLogged.id,
         });
 
         if (result === "success") {
@@ -172,16 +171,15 @@ const Profile: React.FC = () => {
               }
             }
 
-            if (result === "error") {
-              toast.error(message);
-            }
+            if (result === "error") toast.error(message);
           }
           break;
-        case 2: // Cancela a solicitação
+        case 2: // Cancelar a solicitação enviada
           if (relationshipId) {
             const { result, message } = await cancelRequest({
               id: relationshipId,
             });
+
             if (result === "success") setRelationship(1);
             if (result === "error") toast.error(message);
           }
@@ -191,19 +189,18 @@ const Profile: React.FC = () => {
             const { result, message } = await deleteFriend({
               id: relationshipId,
             });
+
             if (result === "success") setRelationship(1);
             if (result === "error") toast.error(message);
           }
-
           break;
         case 4: // Aceitar o pedido de amizade
           if (relationshipId) {
             const { result, message } = await acceptRequest({
               id: relationshipId,
             });
-            if (result === "success") {
-              setRelationship(3);
-            }
+
+            if (result === "success") setRelationship(3);
             if (result === "error") toast.error(message);
           }
           break;
@@ -219,7 +216,8 @@ const Profile: React.FC = () => {
     try {
       if (relationshipId) {
         const { result, message } = await recuseRequest({ id: relationshipId });
-        if (result === "success") setRelationship(3);
+
+        if (result === "success") setRelationship(1);
         if (result === "error") toast.error(message);
       }
     } catch (error: any) {
@@ -230,6 +228,7 @@ const Profile: React.FC = () => {
   const handleRemoveRequest = useCallback(
     async (id: string) => {
       setRequests(requests.filter((request) => request.id !== id));
+
       handleListAllFriendsByUser();
     },
     [requests, handleListAllFriendsByUser],
@@ -342,6 +341,7 @@ const Profile: React.FC = () => {
 
     if (!leave) setRelationship(1);
   }, [id, userLogged?.id, friends, requests, userLoggedRequests]);
+
   const isOwner = id === userLogged?.id;
 
   return (
@@ -399,8 +399,7 @@ const Profile: React.FC = () => {
                   1 - Adicionar amigo
                   2 - Cancelar solicitação
                   3 - Desfazer amizade
-                  4 - Aceitar pedido
-                  5 - Recusar pedido
+                  4 - Aceitar pedido | Recusar pedido
                 */}
 
                 {!isOwner && (
@@ -516,10 +515,6 @@ const Profile: React.FC = () => {
               </RequestList>
             </Requests>
           )}
-
-          <a style={{ color: "white" }} onClick={signOut}>
-            Sair
-          </a>
         </Sidebar>
 
         <Modal

@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import { X } from "phosphor-react";
+import { ReactNode, useEffect } from "react";
 
 import { Container, Content } from "./styles";
 
@@ -21,8 +21,20 @@ const Modal: React.FC<ModalProps> = ({
   const id = "modal";
 
   function handleOutsideClick(e: any) {
-    if (e.target.id === id) onClose();
+    if (e.target.id === id) if (isOpen) onClose();
   }
+
+  useEffect(() => {
+    function handleTypedKey(event: KeyboardEvent) {
+      if (event.key === "Escape") if (isOpen) onClose();
+    }
+
+    document.addEventListener("keydown", handleTypedKey);
+
+    return () => {
+      document.removeEventListener("keydown", handleTypedKey);
+    };
+  }, [isOpen, onClose]);
 
   return (
     isOpen && (

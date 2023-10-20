@@ -1,11 +1,12 @@
 import { Check, X } from "phosphor-react";
+import { useCallback } from "react";
+import { toast } from "react-toastify";
+
+import { useAuthentication } from "../../contexts/Authentication";
+import { acceptRequest, recuseRequest } from "../../services/friends";
 
 import AvatarCircle from "../AvatarCircle";
 
-import { useCallback } from "react";
-import { toast } from "react-toastify";
-import { useAuthentication } from "../../contexts/Authentication";
-import { acceptRequest, recuseRequest } from "../../services/friends";
 import {
   Actions,
   ButtonAccept,
@@ -40,7 +41,7 @@ const RequestFriend: React.FC<RequestFriendProps> = ({
         id,
       });
 
-      if (result === "success") onRemove(3);
+      if (result === "success") onRemove();
       if (result === "error") toast.error(message);
     } catch (error: any) {
       toast.error(error.message);
@@ -52,7 +53,8 @@ const RequestFriend: React.FC<RequestFriendProps> = ({
       const { result, message } = await recuseRequest({
         id,
       });
-      if (result === "success") onRemove(1);
+
+      if (result === "success") onRemove();
       if (result === "error") toast.error(message);
     } catch (error: any) {
       toast.error(error.message);

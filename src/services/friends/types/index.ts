@@ -55,7 +55,7 @@ interface ICreateFriendResponse extends AppResponse {
     userId1: string;
     userId2: string;
     actionId1: 1 | 2;
-    actionId2: 3 | 4;
+    actionId2: 3 | 4 | null;
     createdAt: string;
   };
 }

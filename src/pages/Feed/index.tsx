@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 
 import LayoutDefault from "../../layouts/Default";
 
+import ProfileCard from "../../components/ProfileCard";
 import CreatePost from "../../components/CreatePost";
 import Post from "../../components/Post";
-import ProfileCard from "../../components/ProfileCard";
 
 import { Container, Posts } from "./styles";
 
-import { listAllPosts } from "../../services/posts";
 import { IPost } from "../../services/posts/types";
+import { listAllPosts } from "../../services/posts";
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);

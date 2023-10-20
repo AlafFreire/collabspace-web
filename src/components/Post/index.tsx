@@ -1,46 +1,47 @@
-import moment from "moment";
-import { ChatCircleText, DotsThree, ThumbsUp, Trash } from "phosphor-react";
-import { FormEvent, useCallback, useState } from "react";
+import { useState, useEffect, useRef, useCallback, FormEvent } from "react";
+import { ThumbsUp, ChatCircleText, DotsThree, Trash } from "phosphor-react";
 import { toast } from "react-toastify";
+
+import moment from "moment";
 
 import { DiffToString } from "../../utils/date";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
+import { deletePost } from "../../services/posts";
 import { createComment, deleteComment } from "../../services/comments";
-import { IComment } from "../../services/comments/types";
 import { createReaction, deleteReaction } from "../../services/reactions";
+import { IComment } from "../../services/comments/types";
 import { IReaction } from "../../services/reactions/types";
 
 import AvatarSquare from "../AvatarSquare";
-import Button from "../Button";
 import Comment from "../Comment";
 import InputArea from "../InputArea";
+import Button from "../Button";
 import Modal from "../Modal";
 import ReactionList from "../ReactionList";
 
-import { deletePost } from "../../services/posts";
 import {
+  Container,
+  Header,
   Author,
   AuthorInfo,
-  BoxOptions,
+  Content,
+  Description,
+  Hashtags,
+  Divider,
+  Interactions,
+  InteractionInfo,
+  CountReaction,
+  CountComment,
+  InteractionAction,
   ButtonAction,
   CommentArea,
   CommentForm,
   Comments,
-  Container,
-  Content,
-  CountComment,
-  CountReaction,
-  Description,
-  Divider,
-  Hashtags,
-  Header,
-  InteractionAction,
-  InteractionInfo,
-  Interactions,
-  Option,
   OptionsArea,
+  BoxOptions,
+  Option,
 } from "./styles";
 
 interface PostProps {
@@ -83,16 +84,36 @@ const Post: React.FC<PostProps> = ({
   );
 
   const [modalReactions, setModalReactions] = useState(false);
+  const [boxOptions, setBoxOption] = useState(false);
 
-  const [boxOptions, setBoxOptions] = useState(false);
+  const boxOptionsRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        boxOptionsRef.current &&
+        !boxOptionsRef.current.contains(event.target as Node)
+      ) {
+        setBoxOption(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleDeletePost = useCallback(async () => {
     try {
       const { result, message } = await deletePost({ id: postId });
+
       if (result === "success") {
         onDeletePost(postId);
         toast.success(message);
       }
+
       if (result === "error") toast.error(message);
     } catch (error: any) {
       toast.error(error.message);
@@ -217,7 +238,7 @@ const Post: React.FC<PostProps> = ({
   }
 
   function toggleBoxOptions() {
-    setBoxOptions(!boxOptions);
+    setBoxOption(!boxOptions);
   }
 
   return (
@@ -226,7 +247,7 @@ const Post: React.FC<PostProps> = ({
         <OptionsArea>
           <DotsThree size={24} weight="bold" onClick={toggleBoxOptions} />
 
-          <BoxOptions $boxOptions={boxOptions}>
+          <BoxOptions ref={boxOptionsRef} $boxOptions={boxOptions}>
             <Option onClick={handleDeletePost}>
               <Trash size={24} weight="fill" />
               Excluir publicação
@@ -234,6 +255,7 @@ const Post: React.FC<PostProps> = ({
           </BoxOptions>
         </OptionsArea>
       )}
+
       <Header>
         <Author>
           <AvatarSquare

@@ -45,10 +45,10 @@ interface IListAllPostsResponse extends AppResponse {
 }
 
 export type {
+  IPost,
   ICreatePostRequest,
   ICreatePostResponse,
   IDeletePostRequest,
   IDeletePostResponse,
   IListAllPostsResponse,
-  IPost,
 };
