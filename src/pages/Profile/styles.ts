@@ -1,4 +1,4 @@
-import { styled, css } from "styled-components";
+import { css, styled } from "styled-components";
 
 interface FriendshipButtonProps {
   $relationship: number;
@@ -117,6 +117,7 @@ export const Total = styled.div`
   margin-top: 1.5rem;
 
   span {
+    margin-top: 5%;
     color: var(--zinc-300);
     font-weight: 300;
 
@@ -193,6 +194,24 @@ export const FriendList = styled.div`
   gap: 1.5rem;
 
   margin: 2rem 0;
+`;
+
+export const Posts = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  #posts {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 2.5rem;
+    border-radius: 8px;
+    padding: 1rem;
+
+    color: var(--zinc-100);
+    background: var(--zinc-800);
+  }
 `;
 
 export const AreaFriendButton = styled.div`

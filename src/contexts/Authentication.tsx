@@ -1,9 +1,9 @@
 import {
+  ReactNode,
   createContext,
+  useCallback,
   useContext,
   useState,
-  useCallback,
-  ReactNode,
 } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -12,8 +12,9 @@ import { User } from "../services/sessions/types";
 
 import { session } from "../services/sessions";
 
-import api from "../services/Api/api";
 import usePersistedState from "../hooks/usePersistedState";
+import api from "../services/Api/api";
+import { IAddress } from "../services/address/types";
 
 interface SignInRequest {
   email: string;
@@ -32,8 +33,15 @@ interface AuthenticationContextType {
   token: string;
   loggedEmail: string;
   handleLoggedEmail: (email: string) => void;
+  handleUser: (
+    name: string,
+    telephone: string,
+    birthDate: string,
+    bio: string,
+  ) => void;
   handleAvatarUrl: (avatarUrl: string) => void;
   handleCoverUrl: (coverUrl: string) => void;
+  handleAddress: (address: IAddress[]) => void;
   signIn(data: SignInRequest): Promise<SignInResponse>;
   signOut(): void;
   me(id?: string): void;
@@ -63,6 +71,19 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     [setLoggedEmail],
   );
 
+  const handleUser = useCallback(
+    (name: string, telephone: string, birthDate: string, bio: string) => {
+      setUser((prevState) => ({
+        ...prevState,
+        name,
+        telephone,
+        birthDate,
+        bio,
+      }));
+    },
+    [setUser],
+  );
+
   const handleAvatarUrl = useCallback(
     (avatarUrl: string) => {
       setUser((prevState) => ({
@@ -79,6 +100,13 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         ...prevState,
         coverUrl,
       }));
+    },
+    [setUser],
+  );
+
+  const handleAddress = useCallback(
+    (address: IAddress[]) => {
+      setUser((prevState) => ({ ...prevState, address }));
     },
     [setUser],
   );
@@ -128,8 +156,10 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         token,
         loggedEmail,
         handleLoggedEmail,
+        handleUser,
         handleAvatarUrl,
         handleCoverUrl,
+        handleAddress,
         signIn,
         signOut,
         me,

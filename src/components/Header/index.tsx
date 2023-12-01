@@ -1,6 +1,6 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
-import { House, SignOut } from "phosphor-react";
+import { SignOut, House } from "phosphor-react";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
@@ -9,14 +9,14 @@ import { LogoRocket } from "../../assets/sources";
 import AvatarCircle from "../AvatarCircle";
 
 import {
+  Container,
+  Brand,
+  Navbar,
+  Menu,
+  Item,
   Aside,
   AsideButton,
-  Brand,
-  Container,
   Divider,
-  Item,
-  Menu,
-  Navbar,
 } from "./styles";
 
 const ITEMS_HEADER = [

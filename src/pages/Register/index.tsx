@@ -1,24 +1,24 @@
-import { useState, useCallback, FormEvent } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { createUser } from "../../services/users";
 import { useAuthentication } from "../../contexts/Authentication";
+import { createUser } from "../../services/users";
 
 import { Spiner } from "../../assets/sources";
 
 import {
-  Container,
-  Form,
-  ErrorAlert,
-  Group,
-  Label,
-  Input,
   AreaEmail,
   AreaPassword,
-  PasswordMeter,
   Button,
+  Container,
+  ErrorAlert,
+  Form,
+  Group,
+  Input,
+  Label,
   LinkLogin,
+  PasswordMeter,
 } from "./styles";
 
 const Register: React.FC = () => {
@@ -27,7 +27,7 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [birthDate, setBirthdate] = useState("");
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -134,7 +134,7 @@ const Register: React.FC = () => {
             max="2022-12-31"
             required
             onChange={(e) => {
-              setBirthDate(e.target.value);
+              setBirthdate(e.target.value);
             }}
           />
         </Group>

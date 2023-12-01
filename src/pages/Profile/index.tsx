@@ -1,11 +1,8 @@
-import { useState, useEffect, useCallback, FormEvent } from "react";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import moment from "moment";
+import { FormEvent, useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { IUser } from "../../services/users/types";
-import { listUserById, updateAvatar, updateCover } from "../../services/users";
-import { IFriend, IRequest } from "../../services/friends/types";
 import {
   acceptRequest,
   cancelRequest,
@@ -15,50 +12,59 @@ import {
   listAllRequestsByUser,
   recuseRequest,
 } from "../../services/friends";
+import { IFriend, IRequest } from "../../services/friends/types";
+import { listUserById, updateAvatar, updateCover } from "../../services/users";
+import { IUser } from "../../services/users/types";
 
 import LayoutDefault from "../../layouts/Default";
 
 import AvatarCircle from "../../components/AvatarCircle";
-import RequestFriend from "../../components/RequestFriend";
 import FriendCard from "../../components/FriendCard";
 import Modal from "../../components/Modal";
+import RequestFriend from "../../components/RequestFriend";
 
 import { useAuthentication } from "../../contexts/Authentication";
 
 import {
+  Cake,
   Camera,
-  PencilSimple,
-  MapPin,
-  Phone,
   Clock,
-  UserCirclePlus,
+  MapPin,
+  PencilSimple,
+  Phone,
   UserCircleMinus,
+  UserCirclePlus,
 } from "phosphor-react";
 
+import Post from "../../components/Post";
+import { listAllPostsByUser } from "../../services/posts";
+import { IPost } from "../../services/posts/types";
+import { maskTelephone } from "../../utils/mask";
 import {
+  AreaFriendButton,
+  ButtonEdit,
+  Contact,
   Container,
   Content,
-  Overview,
-  UserBanner,
   Cover,
   EditCoverButton,
-  UserInfo,
   EditInfoButton,
-  General,
-  Total,
+  FormEdit,
+  FriendList,
+  Friends,
   FriendshipArea,
   FriendshipButton,
-  Contact,
-  Friends,
-  FriendList,
-  AreaFriendButton,
-  Sidebar,
-  Requests,
-  RequestList,
-  FormEdit,
+  General,
   InputEdit,
-  ButtonEdit,
+  Overview,
+  Posts,
   PreviewAvatar,
+  RequestList,
+  Requests,
+  Sidebar,
+  Total,
+  UserBanner,
+  UserInfo,
 } from "./styles";
 
 moment.defineLocale("pt-br", {
@@ -78,6 +84,8 @@ const Profile: React.FC = () => {
     handleCoverUrl,
   } = useAuthentication();
 
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<IUser | null>(null);
   const [friends, setFriends] = useState<IFriend[]>([]);
   const [requests, setRequests] = useState<IRequest[]>([]);
@@ -90,6 +98,22 @@ const Profile: React.FC = () => {
   const [modalPreviewAvatar, setModalPreviewAvatar] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
+
+  const [posts, setPosts] = useState<IPost[]>([]);
+
+  const handleListAllPostsByUser = useCallback(async () => {
+    try {
+      if (id) {
+        const { result, data } = await listAllPostsByUser({ id });
+
+        if (result === "success") {
+          if (data) setPosts(data.posts);
+        }
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }, [id]);
 
   const handleListUserById = useCallback(async () => {
     try {
@@ -294,6 +318,7 @@ const Profile: React.FC = () => {
     handleListAllFriendsByUser();
     handleListAllRequestsByUser();
     handleListAllRequestsByUserLogged();
+    handleListAllPostsByUser();
   }, [
     id,
     relationship,
@@ -301,6 +326,7 @@ const Profile: React.FC = () => {
     handleListAllFriendsByUser,
     handleListAllRequestsByUser,
     handleListAllRequestsByUserLogged,
+    handleListAllPostsByUser,
   ]);
 
   useEffect(() => {
@@ -344,6 +370,9 @@ const Profile: React.FC = () => {
 
   const isOwner = id === userLogged?.id;
 
+  const handleRemovePost = (id: string) =>
+    setPosts((prevState) => prevState.filter((post) => post.id !== id));
+
   return (
     <LayoutDefault>
       <Container>
@@ -375,7 +404,7 @@ const Profile: React.FC = () => {
               </div>
 
               {isOwner && (
-                <EditInfoButton>
+                <EditInfoButton onClick={() => navigate("/profile")}>
                   <PencilSimple size={22} weight="bold" />
                 </EditInfoButton>
               )}
@@ -388,10 +417,18 @@ const Profile: React.FC = () => {
 
                 <Total>
                   <span>
-                    <strong>115</strong> publicações
+                    <strong> {posts.length} </strong>{" "}
+                    {posts.length === 1 ? "publicação" : "publicações"}
                   </span>
                   <span>
-                    <strong>{friends.length}</strong> amigos
+                    {friends.length !== 0 ? (
+                      <>
+                        <strong>{friends.length}</strong>{" "}
+                        {friends.length === 1 ? "amigo" : "amigos"}
+                      </>
+                    ) : (
+                      <b>Nenhum amigo</b>
+                    )}
                   </span>
                 </Total>
 
@@ -445,19 +482,25 @@ const Profile: React.FC = () => {
               <Contact>
                 <span>
                   <MapPin size={20} weight="bold" />
-                  Jaborandi, São Paulo, Brasil
+                  {user?.address[0].city}, {user?.address[0].province},{" "}
+                  {user?.address[0].country}
                 </span>
 
                 {user?.telephone && (
                   <span>
                     <Phone size={20} weight="bold" />
-                    {user.telephone}
+                    {maskTelephone(user.telephone)}
                   </span>
                 )}
 
                 <span>
                   <Clock size={20} weight="bold" />
                   {moment(user?.createdAt).format("[Entrou em] MMMM [de] YYYY")}
+                </span>
+                <span>
+                  <Cake size={20} weight="bold" />
+
+                  {user?.birthDate}
                 </span>
               </Contact>
             </UserInfo>
@@ -493,6 +536,31 @@ const Profile: React.FC = () => {
               <button>Ver todos os amigos</button>
             </AreaFriendButton>
           </Friends>
+
+          <Posts>
+            <h1 id="posts">
+              {" "}
+              {id === userLogged?.id
+                ? "Suas Publicações"
+                : `Publicações de ${user?.name}`}{" "}
+            </h1>
+            {posts.map((post) => (
+              <Post
+                key={post.id}
+                authorId={post.user.id}
+                authorAvatar={post.user.avatarUrl}
+                authorName={post.user.name}
+                authorEmail={post.user.email}
+                postId={post.id}
+                content={post.content}
+                tags={post.tags}
+                comments={post.comments}
+                reactions={post.reactions}
+                publishedAt={post.publishedAt}
+                onDeletePost={handleRemovePost}
+              />
+            ))}
+          </Posts>
         </Content>
 
         <Sidebar>
@@ -533,6 +601,7 @@ const Profile: React.FC = () => {
               }}
               placeholder="URL da imagem"
             />
+
             <ButtonEdit>SALVAR</ButtonEdit>
           </FormEdit>
         </Modal>

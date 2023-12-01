@@ -1,5 +1,7 @@
 import { AppResponse } from "../../Api/types";
 
+import { IAddress } from "../../address/types";
+
 interface User {
   id: string;
   name: string;
@@ -8,6 +10,8 @@ interface User {
   birthDate: string;
   avatarUrl: string | null;
   coverUrl: string | null;
+  bio: string | null;
+  address: IAddress[];
   createdAt: string;
 }
 
@@ -25,4 +29,4 @@ interface ISessionResponse extends AppResponse {
   data?: ISession;
 }
 
-export type { User, ISessionRequest, ISessionResponse };
+export type { ISessionRequest, ISessionResponse, User };

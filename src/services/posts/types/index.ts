@@ -44,11 +44,26 @@ interface IListAllPostsResponse extends AppResponse {
   };
 }
 
+interface IListAllPostsByUserRequest {
+  id: string;
+  page?: number;
+  limit?: number;
+}
+
+interface IListAllPostsByUserResponse extends AppResponse {
+  data?: {
+    total: number;
+    posts: IPost[];
+  };
+}
+
 export type {
-  IPost,
   ICreatePostRequest,
   ICreatePostResponse,
   IDeletePostRequest,
   IDeletePostResponse,
+  IListAllPostsByUserRequest,
+  IListAllPostsByUserResponse,
   IListAllPostsResponse,
+  IPost,
 };

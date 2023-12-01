@@ -35,7 +35,7 @@ export const Navbar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;  
+`;
 
 export const Menu = styled.div`
   height: 100%;
@@ -44,17 +44,19 @@ export const Menu = styled.div`
 
   .active {
     button {
-      padding: 0 calc(1.75rem + 8px);
+      padding: 0 calc(2.5rem + 8px);
 
-      border-bottom: 3px solid var(--emerald-500);
+      border-bottom: 3px solid var(--emerald-600);
+
       svg {
-        color: var(--emerald-500);
+        color: var(--emerald-600);
       }
     }
   }
 
   .inactive {
     margin: 4px 8px;
+
     button {
       border-bottom: 3px solid transparent;
       border-radius: 8px;
@@ -77,7 +79,7 @@ export const Item = styled.button`
   justify-content: center;
 
   height: 100%;
-  padding: 0 1.75rem;
+  padding: 0 2.5rem;
   background: transparent;
   outline: 0;
   border: 0;
