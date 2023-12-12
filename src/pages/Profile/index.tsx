@@ -36,6 +36,7 @@ import {
   UserCirclePlus,
 } from "phosphor-react";
 
+import CreatePost from "../../components/CreatePost";
 import Post from "../../components/Post";
 import { listAllPostsByUser } from "../../services/posts";
 import { IPost } from "../../services/posts/types";
@@ -51,6 +52,7 @@ import {
   EditInfoButton,
   FormEdit,
   FriendList,
+  FriendListModal,
   Friends,
   FriendshipArea,
   FriendshipButton,
@@ -58,6 +60,7 @@ import {
   InputEdit,
   Overview,
   Posts,
+  PostsTitle,
   PreviewAvatar,
   RequestList,
   Requests,
@@ -96,6 +99,7 @@ const Profile: React.FC = () => {
   const [modalEditAvatar, setModalEditAvatar] = useState(false);
   const [modalEditCover, setModalEditCover] = useState(false);
   const [modalPreviewAvatar, setModalPreviewAvatar] = useState(false);
+  const [modalFriends, setModalFriends] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
 
@@ -162,6 +166,15 @@ const Profile: React.FC = () => {
       toast.error(error.message);
     }
   }, [id]);
+
+  const handleAddPost = (post: IPost) =>
+    setPosts((prevState) => {
+      const posts = [...prevState];
+
+      posts.unshift(post);
+
+      return posts;
+    });
 
   const handleListAllRequestsByUserLogged = useCallback(async () => {
     try {
@@ -304,6 +317,10 @@ const Profile: React.FC = () => {
     setModalEditAvatar(!modalEditAvatar);
   }
 
+  function toggleModalFriends() {
+    setModalFriends(!modalFriends);
+  }
+
   function toggleModalEditCover() {
     setModalEditCover(!modalEditCover);
   }
@@ -415,12 +432,12 @@ const Profile: React.FC = () => {
                 <h1>{user?.name}</h1>
                 <p>{user?.bio}</p>
 
-                <Total>
-                  <span>
+                <Total id="friends">
+                  <span onClick={() => (document.location.href = "#posts")}>
                     <strong> {posts.length} </strong>{" "}
                     {posts.length === 1 ? "publicação" : "publicações"}
                   </span>
-                  <span>
+                  <span onClick={() => (document.location.href = "#friends")}>
                     {friends.length !== 0 ? (
                       <>
                         <strong>{friends.length}</strong>{" "}
@@ -480,11 +497,15 @@ const Profile: React.FC = () => {
               </General>
 
               <Contact>
-                <span>
-                  <MapPin size={20} weight="bold" />
-                  {user?.address[0].city}, {user?.address[0].province},{" "}
-                  {user?.address[0].country}
-                </span>
+                {user?.address?.[0] && (
+                  <span>
+                    <MapPin size={20} weight="bold" />
+                    {user?.address[0].city && `${user?.address[0].city}, `}
+                    {user?.address[0].province &&
+                      `${user?.address[0].province}, `}
+                    {user?.address[0].country}
+                  </span>
+                )}
 
                 {user?.telephone && (
                   <span>
@@ -500,7 +521,7 @@ const Profile: React.FC = () => {
                 <span>
                   <Cake size={20} weight="bold" />
 
-                  {user?.birthDate}
+                  {moment(user?.birthDate).format("DD [de] MMMM [de] YYYY")}
                 </span>
               </Contact>
             </UserInfo>
@@ -513,11 +534,13 @@ const Profile: React.FC = () => {
               {friends.map((friend) => {
                 let userId = friend.user1.id;
                 let userName = friend.user1.name;
+                let userEmail = friend.user1.email;
                 let userAvatarUrl = friend.user1.avatarUrl;
 
                 if (friend.user1.id === id) {
                   userId = friend.user2.id;
                   userName = friend.user2.name;
+                  userEmail = friend.user2.email;
                   userAvatarUrl = friend.user2.avatarUrl;
                 }
 
@@ -527,23 +550,31 @@ const Profile: React.FC = () => {
                     id={userId}
                     name={userName}
                     avatarUrl={userAvatarUrl}
+                    email={userEmail}
                   />
                 );
               })}
             </FriendList>
 
             <AreaFriendButton>
-              <button>Ver todos os amigos</button>
+              <button onClick={toggleModalFriends}>Ver todos os amigos</button>
             </AreaFriendButton>
           </Friends>
 
-          <Posts>
-            <h1 id="posts">
-              {" "}
-              {id === userLogged?.id
-                ? "Suas Publicações"
-                : `Publicações de ${user?.name}`}{" "}
-            </h1>
+          {isOwner ? (
+            <CreatePost onCreatePost={handleAddPost} />
+          ) : (
+            <PostsTitle>
+              <h1>
+                {" "}
+                {id === userLogged?.id
+                  ? "Suas Publicações"
+                  : `Publicações de ${user?.name}`}{" "}
+              </h1>
+            </PostsTitle>
+          )}
+
+          <Posts id="posts">
             {posts.map((post) => (
               <Post
                 key={post.id}
@@ -634,6 +665,34 @@ const Profile: React.FC = () => {
           <PreviewAvatar
             src={user?.avatarUrl || "https://i.imgur.com/HYrZqHy.jpg"}
           />
+        </Modal>
+
+        <Modal width="90%" isOpen={modalFriends} onClose={toggleModalFriends}>
+          <FriendListModal>
+            {friends.map((friend) => {
+              let userId = friend.user1.id;
+              let userName = friend.user1.name;
+              let userEmail = friend.user1.email;
+              let userAvatarUrl = friend.user1.avatarUrl;
+
+              if (friend.user1.id === id) {
+                userId = friend.user2.id;
+                userName = friend.user2.name;
+                userEmail = friend.user2.email;
+                userAvatarUrl = friend.user2.avatarUrl;
+              }
+
+              return (
+                <FriendCard
+                  key={friend.id}
+                  id={userId}
+                  name={userName}
+                  email={userEmail}
+                  avatarUrl={userAvatarUrl}
+                />
+              );
+            })}
+          </FriendListModal>
         </Modal>
       </Container>
     </LayoutDefault>

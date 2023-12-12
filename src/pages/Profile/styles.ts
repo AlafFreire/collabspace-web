@@ -196,22 +196,23 @@ export const FriendList = styled.div`
   margin: 2rem 0;
 `;
 
+export const PostsTitle = styled.div`
+  padding: 1.5rem;
+  background: var(--zinc-800);
+  border-radius: 8px;
+  margin-bottom: -1rem;
+
+  h1 {
+    font-size: 1.375rem;
+    color: var(--zinc-200);
+    font-weight: 600;
+  }
+`;
+
 export const Posts = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
-  #posts {
-    display: flex;
-    justify-content: center;
-
-    margin-top: 2.5rem;
-    border-radius: 8px;
-    padding: 1rem;
-
-    color: var(--zinc-100);
-    background: var(--zinc-800);
-  }
 `;
 
 export const AreaFriendButton = styled.div`
@@ -314,4 +315,8 @@ export const ButtonEdit = styled.button`
 export const PreviewAvatar = styled.img`
   width: 100%;
   height: 100%;
+`;
+
+export const FriendListModal = styled(FriendList)`
+  padding: 2rem;
 `;

@@ -5,11 +5,13 @@ interface IFriend {
   user1: {
     id: string;
     name: string;
+    email: string;
     avatarUrl: string;
   };
   user2: {
     id: string;
     name: string;
+    email: string;
     avatarUrl: string;
   };
   createdAt: string;
@@ -85,20 +87,20 @@ interface IDeleteFriendRequest {
 type IDeleteFriendResponse = AppResponse;
 
 export type {
+  IAcceptRequestRequest,
+  IAcceptRequestResponse,
+  ICancelRequestRequest,
+  ICancelRequestResponse,
+  ICreateFriendRequest,
+  ICreateFriendResponse,
+  IDeleteFriendRequest,
+  IDeleteFriendResponse,
   IFriend,
-  IRequest,
   IListAllFriendsByUserRequest,
   IListAllFriendsByUserResponse,
   IListAllRequestsByUserRequest,
   IListAllRequestsByUserResponse,
-  ICreateFriendRequest,
-  ICreateFriendResponse,
-  ICancelRequestRequest,
-  ICancelRequestResponse,
-  IAcceptRequestRequest,
-  IAcceptRequestResponse,
   IRecuseRequestRequest,
   IRecuseRequestResponse,
-  IDeleteFriendRequest,
-  IDeleteFriendResponse,
+  IRequest,
 };
